@@ -14,7 +14,8 @@ class UsuariosTableSeeder extends Seeder
             [
                 'tipo_documento' => 'CC',
                 'numero_documento' => '123456789',
-                'nombre' => 'John Doe',
+                'nombre' => 'John',
+                'apellido' => 'Doe',
                 'correo_electronico' => 'john.doe@example.com',
                 'contrasena_hash' => Hash::make('password'),
                 'id_rol' => 1, // Asumiendo que el rol con ID 1 ya existe
