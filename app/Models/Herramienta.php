@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Herramienta extends Model
 {
@@ -13,17 +14,24 @@ class Herramienta extends Model
 
     protected $fillable = [
         'nombre',
+        'codigo_herramienta',
         'descripcion',
         'estado',
         'categoria',
         'fecha_adquisicion',
         'ultimo_mantenimiento',
         'ubicacion_actual',
+        'foto_url', // Asegúrate de agregar este campo
         'creado_por',
         'actualizado_por',
     ];
 
     public $timestamps = false; // Deshabilitar timestamps
+
+    public function getPhotoUrlAttribute()
+    {
+        return $this->foto_url ? Storage::url($this->foto_url) : null;
+    }
 
     // Relación con el modelo Usuario (creado por y actualizado por)
     public function creador()

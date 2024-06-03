@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asignacion_herramientas', function (Blueprint $table) {
+        Schema::create('historial_cambios', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('codigo_obra')->index('codigo_obra');
-            $table->integer('codigo_herramienta')->index('codigo_herramienta');
-            $table->date('fecha_asignacion');
-            $table->date('fecha_fin')->nullable();
+            $table->enum('tipo_cambio', ['Herramienta', 'Obra'])->nullable();
+            $table->integer('id_elemento')->nullable();
+            $table->text('descripcion_cambio')->nullable();
+            $table->timestamp('fecha_cambio')->useCurrent();
+            $table->integer('id_usuario')->nullable()->index('id_usuario');
             $table->boolean('eliminado')->nullable()->default(false);
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asignacion_herramientas');
+        Schema::dropIfExists('historial_cambios');
     }
 };

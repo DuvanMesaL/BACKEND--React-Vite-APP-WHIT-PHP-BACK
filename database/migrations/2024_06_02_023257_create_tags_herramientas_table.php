@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('configuracion_global', function (Blueprint $table) {
-            $table->string('clave')->primary();
-            $table->text('valor');
+        Schema::create('tags_herramientas', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->integer('codigo_herramienta')->nullable()->index('codigo_herramienta');
+            $table->string('tag')->nullable();
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('configuracion_global');
+        Schema::dropIfExists('tags_herramientas');
     }
 };

@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->enum('tipo_documento', ['CC', 'TI', 'CE', 'Pasaporte']);
+            $table->enum('tipo_documento', ['CC', 'TI', 'CE', 'Pasaporte'])->nullable();
             $table->string('numero_documento');
             $table->string('nombre');
-            $table->string('correo_electronico')->unique('correo_electronico');
-            $table->string('contrasena_hash');
-            $table->integer('id_rol')->index('id_rol');
-            $table->enum('estado_cuenta', ['Activo', 'Inactivo']);
+            $table->string('apellido');
+            $table->string('correo_electronico')->nullable()->unique('correo_electronico');
+            $table->string('contrasena_hash')->nullable();
+            $table->integer('id_rol')->default(2)->index('id_rol');
+            $table->enum('estado_cuenta', ['Activo', 'Inactivo'])->nullable();
             $table->timestamp('fecha_registro')->useCurrent();
             $table->timestamp('ultima_sesion')->nullable();
             $table->string('direccion')->nullable();
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->text('biografia')->nullable();
             $table->enum('preferencia_comunicacion', ['Email', 'Telefono', 'SMS'])->nullable();
             $table->boolean('eliminado')->nullable()->default(false);
+            $table->timestamps();
         });
     }
 

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('telefonos', function (Blueprint $table) {
-            $table->foreign(['id_usuario'], 'telefonos_ibfk_1')->references(['id'])->on('usuarios')->onUpdate('cascade')->onDelete('cascade');
+        Schema::table('tags_herramientas', function (Blueprint $table) {
+            $table->foreign(['codigo_herramienta'], 'tags_herramientas_ibfk_1')->references(['id'])->on('herramientas')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('telefonos', function (Blueprint $table) {
-            $table->dropForeign('telefonos_ibfk_1');
+        Schema::table('tags_herramientas', function (Blueprint $table) {
+            $table->dropForeign('tags_herramientas_ibfk_1');
         });
     }
 };

@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('id_usuario')->index('id_usuario');
-            $table->integer('codigo_herramienta')->index('codigo_herramienta');
+            $table->integer('id_usuario')->nullable()->index('id_usuario');
+            $table->integer('codigo_herramienta')->nullable()->index('codigo_herramienta');
             $table->timestamp('fecha_reserva')->useCurrent();
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
-            $table->integer('creado_por')->nullable();
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
+            $table->integer('creado_por')->nullable()->index('creado_por');
             $table->timestamp('creado_en')->useCurrent();
-            $table->integer('actualizado_por')->nullable();
-            $table->timestamp('actualizado_en')->useCurrentOnUpdate()->useCurrent();
-            $table->enum('estado', ['Pendiente', 'Confirmada', 'En Espera', 'Cancelada', 'Finalizada']);
+            $table->integer('actualizado_por')->nullable()->index('actualizado_por');
+            $table->timestamp('actualizado_en')->nullable();
+            $table->enum('estado', ['Pendiente', 'Confirmada', 'En Espera', 'Cancelada', 'Finalizada'])->nullable();
             $table->boolean('eliminado')->nullable()->default(false);
         });
     }

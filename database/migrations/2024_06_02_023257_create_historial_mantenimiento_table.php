@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('historial_mantenimiento', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('codigo_herramienta')->index('codigo_herramienta');
-            $table->date('fecha_mantenimiento');
+            $table->integer('codigo_herramienta')->nullable()->index('codigo_herramienta');
+            $table->date('fecha_mantenimiento')->nullable();
             $table->integer('creado_por')->nullable()->index('creado_por');
             $table->timestamp('creado_en')->useCurrent();
             $table->integer('actualizado_por')->nullable()->index('actualizado_por');
-            $table->timestamp('actualizado_en')->useCurrentOnUpdate()->useCurrent();
-            $table->text('detalles');
-            $table->decimal('coste', 10);
+            $table->timestamp('actualizado_en')->nullable();
+            $table->text('detalles')->nullable();
+            $table->decimal('coste', 10)->nullable();
         });
     }
 

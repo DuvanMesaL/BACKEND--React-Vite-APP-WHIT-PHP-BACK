@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rol_permiso', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->integer('id_rol')->index('id_rol');
-            $table->integer('id_permiso')->index('id_permiso');
+        Schema::create('configuracion_global', function (Blueprint $table) {
+            $table->string('clave')->primary();
+            $table->text('valor')->nullable();
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rol_permiso');
+        Schema::dropIfExists('configuracion_global');
     }
 };

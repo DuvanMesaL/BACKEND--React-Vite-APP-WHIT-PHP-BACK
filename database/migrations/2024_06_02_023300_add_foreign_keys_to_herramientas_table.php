@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('herramientas', function (Blueprint $table) {
-            $table->foreign(['creado_por'], 'herramientas_ibfk_1')->references(['id'])->on('usuarios')->onUpdate('cascade')->onDelete('set null');
-            $table->foreign(['actualizado_por'], 'herramientas_ibfk_2')->references(['id'])->on('usuarios')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign(['creado_por'], 'herramientas_ibfk_1')->references(['id'])->on('usuarios')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign(['actualizado_por'], 'herramientas_ibfk_2')->references(['id'])->on('usuarios')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 

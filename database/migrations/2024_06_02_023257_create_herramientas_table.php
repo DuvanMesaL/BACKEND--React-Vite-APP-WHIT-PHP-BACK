@@ -1,32 +1,38 @@
 <?php
 
-//2024_05_25_062017_create_herramientas_table.php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHerramientasTable extends Migration
+return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::create('herramientas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('codigo_herramienta', 10); // Limitar a 10 caracteres
             $table->text('descripcion')->nullable();
             $table->enum('estado', ['Disponible', 'Asignada', 'Perdida', 'En Mantenimiento', 'Eliminado']);
             $table->string('categoria')->nullable();
             $table->date('fecha_adquisicion')->nullable();
             $table->date('ultimo_mantenimiento')->nullable();
             $table->string('ubicacion_actual')->nullable();
-            $table->foreignId('creado_por')->constrained('users');
-            $table->foreignId('actualizado_por')->constrained('users');
+            $table->string('foto_url')->nullable();
             $table->timestamps();
+            $table->foreignId('creado_por')->constrained('usuarios');
+            $table->foreignId('actualizado_por')->constrained('usuarios');
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::dropIfExists('herramientas');
     }
-}
+};

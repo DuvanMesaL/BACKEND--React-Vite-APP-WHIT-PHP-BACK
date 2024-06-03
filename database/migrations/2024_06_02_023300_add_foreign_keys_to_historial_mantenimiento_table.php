@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('historial_mantenimiento', function (Blueprint $table) {
-            $table->foreign(['codigo_herramienta'], 'historial_mantenimiento_ibfk_1')->references(['codigo_herramienta'])->on('herramientas')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign(['creado_por'], 'historial_mantenimiento_ibfk_2')->references(['id'])->on('usuarios')->onUpdate('cascade')->onDelete('set null');
-            $table->foreign(['actualizado_por'], 'historial_mantenimiento_ibfk_3')->references(['id'])->on('usuarios')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign(['codigo_herramienta'], 'historial_mantenimiento_ibfk_1')->references(['id'])->on('herramientas')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign(['creado_por'], 'historial_mantenimiento_ibfk_2')->references(['id'])->on('usuarios')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign(['actualizado_por'], 'historial_mantenimiento_ibfk_3')->references(['id'])->on('usuarios')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 

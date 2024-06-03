@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('telefonos', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('id_usuario')->index('id_usuario');
-            $table->string('numero', 20);
-            $table->enum('tipo', ['Móvil', 'Fijo']);
+            $table->integer('id_usuario')->nullable()->index('id_usuario');
+            $table->string('numero', 20)->nullable();
+            $table->enum('tipo', ['Móvil', 'Fijo'])->nullable();
             $table->boolean('contacto_emergencia')->nullable()->default(false);
         });
     }

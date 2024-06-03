@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->integer('id_rol', true);
-            $table->string('nombre_rol');
+        Schema::table('telefonos', function (Blueprint $table) {
+            $table->foreign(['id_usuario'], 'telefonos_ibfk_1')->references(['id'])->on('usuarios')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::table('telefonos', function (Blueprint $table) {
+            $table->dropForeign('telefonos_ibfk_1');
+        });
     }
 };
