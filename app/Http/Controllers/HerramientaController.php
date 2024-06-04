@@ -5,28 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Herramienta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class HerramientaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $herramientas = Herramienta::all();
         return response()->json($herramientas);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -43,32 +35,31 @@ class HerramientaController extends Controller
 
         if ($request->hasFile('foto_url')) {
             $file = $request->file('foto_url');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('photos', $filename, 'public');
-            $validatedData['foto_url'] = $path;
+            $filename = Str::uuid() . '.webp';
+            $imagePath = public_path('storage/photos/' . $filename);
+
+            $source = imagecreatefromstring(file_get_contents($file));
+            $newWidth = 800;
+            $newHeight = 800;
+
+            $destination = imagecreatetruecolor($newWidth, $newHeight);
+            $width = imagesx($source);
+            $height = imagesy($source);
+
+            imagecopyresampled($destination, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+            imagewebp($destination, $imagePath, 100);
+
+            imagedestroy($source);
+            imagedestroy($destination);
+
+            $validatedData['foto_url'] = 'photos/' . $filename;
         }
 
-        $herramienta = new Herramienta([
-            'nombre' => $validatedData['nombre'],
-            'descripcion' => $validatedData['descripcion'],
-            'estado' => $validatedData['estado'],
-            'categoria' => $validatedData['categoria'],
-            'fecha_adquisicion' => $validatedData['fecha_adquisicion'],
-            'ultimo_mantenimiento' => $validatedData['ultimo_mantenimiento'],
-            'ubicacion_actual' => $validatedData['ubicacion_actual'],
-            'foto_url' => $validatedData['foto_url'] ?? null,
-            'codigo_herramienta' => $validatedData['codigo_herramienta'],
-        ]);
-
-        $herramienta->save();
+        $herramienta = Herramienta::create($validatedData);
 
         return response()->json($herramienta, 201);
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
         $herramienta = Herramienta::find($id);
@@ -80,27 +71,15 @@ class HerramientaController extends Controller
         return response()->json($herramienta, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Herramienta $herramienta)
     {
-        //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Herramienta $herramienta)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Herramienta $herramienta)
     {
-        //
     }
 }

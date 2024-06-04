@@ -21,19 +21,18 @@ class Herramienta extends Model
         'fecha_adquisicion',
         'ultimo_mantenimiento',
         'ubicacion_actual',
-        'foto_url', // Asegúrate de agregar este campo
+        'foto_url',
         'creado_por',
         'actualizado_por',
     ];
 
-    public $timestamps = false; // Deshabilitar timestamps
+    public $timestamps = false;
 
     public function getPhotoUrlAttribute()
     {
         return $this->foto_url ? Storage::url($this->foto_url) : null;
     }
 
-    // Relación con el modelo Usuario (creado por y actualizado por)
     public function creador()
     {
         return $this->belongsTo(User::class, 'creado_por');
