@@ -26,6 +26,8 @@ class User extends Authenticatable
         'biografia',
         'preferencia_comunicacion',
         'estado_cuenta',
+        'big_foto_url',
+        'little_foto_url',
     ];
 
     protected $hidden = [

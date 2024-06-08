@@ -18,6 +18,7 @@ class Herramienta extends Model
         'descripcion',
         'estado',
         'categoria',
+        'marca',
         'fecha_adquisicion',
         'ultimo_mantenimiento',
         'ubicacion_actual',

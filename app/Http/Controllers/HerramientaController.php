@@ -1,5 +1,6 @@
 <?php
 
+// app/Http/Controllers/HerramientaController.php
 namespace App\Http\Controllers;
 
 use App\Models\Herramienta;
@@ -25,7 +26,8 @@ class HerramientaController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'estado' => 'required|string|max:50',
-            'categoria' => 'nullable|string|max:100',
+            'marca' => 'nullable|string|max:100',       // New field
+            'categoria' => 'nullable|string|max:100',   // New field
             'fecha_adquisicion' => 'nullable|date',
             'ultimo_mantenimiento' => 'nullable|date',
             'ubicacion_actual' => 'nullable|string|max:255',
